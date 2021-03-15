@@ -1,0 +1,64 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/function/function",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/person/person",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"usingComponents":{
+			
+		}
+		
+	},
+	"tabBar":{
+		"color":"#000000",
+		"backgroundColor":"#FFFFFF",
+		"selectedColor":"#d81e06",
+		"fontSize":"14px",
+		"list":[
+			{
+				"pagePath":"pages/index/index",
+				"text":"首页",
+				"iconPath":"static/img/home.png",
+				"selectedIconPath":"static/img/selected_home.png"
+			},
+			{
+				"pagePath":"pages/function/function",
+				"text":"功能区",
+				"iconPath":"static/img/function.png",
+				"selectedIconPath":"static/img/selected_function.png"
+			},
+			{
+				"pagePath":"pages/person/person",
+				"text":"个人",
+				"iconPath":"static/img/person.png",
+				"selectedIconPath":"static/img/selected_person.png"
+			}
+		]
+	}
+}
