@@ -1,0 +1,40 @@
+
+.taskTitle{
+	font-size: 28rpx;
+	font-weight: 500;
+}
+.taskInfo{
+	font-size: 32rpx;
+	font-weight: 500;
+}
+.taskLists{
+	margin: 0 auto;
+	width: 90%;
+	padding: 10rpx;
+}
+.taskItem{
+	border: 4rpx solid #e2e2e2;
+	-webkit-border-radius: 32rpx;
+	        border-radius: 32rpx;
+	padding: 4rpx;
+	margin: 20rpx 0;
+	
+	-webkit-box-shadow: #666 0px 2rpx 6rpx;
+	
+	        box-shadow: #666 0px 2rpx 6rpx;
+	/* background: #fcfcfc; */
+}
+.enterTask{
+	font-size: 28rpx;
+	color: #FFFFFF;
+	-webkit-border-radius: 28rpx;
+	        border-radius: 28rpx;
+}
+.Empty{
+	width: 100%;
+}
+.EmptyImg{
+	width: 750rpx;
+	height: 750rpx;
+}
+

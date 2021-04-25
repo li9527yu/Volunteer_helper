@@ -1,0 +1,129 @@
+
+.taskItem{
+	position: relative;
+	width: 100%;
+	border: 2px solid #ffffff; 
+	padding: 6rpx;
+	-webkit-box-shadow: #666 0px 2rpx 6rpx;
+	        box-shadow: #666 0px 2rpx 6rpx;
+	-webkit-border-radius: 20rpx;
+	        border-radius: 20rpx;
+	background-color: #FFFFFF;
+}
+.orderInfo{
+	/* border: 2rpx solid #000000; */
+	-webkit-border-radius: 32rpx;
+	        border-radius: 32rpx;
+	padding: 10rpx;
+}
+.Ordertitle{
+	padding: 2px;
+	border-bottom: 1px solid #f0f0f0;
+}
+.titleText{
+	font-size: 14px;
+	line-height:31.25px;
+	font-weight: 600;
+}
+.orderState{
+	font-size: 14px;
+	line-height:31.25px;
+	color: #4c4c4c;
+}
+.orderImg{
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+/* ul{
+	margin: 0;
+	padding-left: 20px;
+}
+ul li{
+	list-style: none;
+	padding: 2.5px;
+	font-size: 12px;
+} */
+.OrderBody{
+	margin-top: 4px;
+}
+.orderButton{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.buttonTurn{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	padding: 10px;
+}
+/* .buttonTurn button{
+	font-size: 16px;
+	font-weight: 300;
+} */
+.orderIcon{
+	width: 15vw;
+	height: 15vw;
+}
+.titleIcon{
+	width: 7vw;
+	height: 7vw;
+}
+.cancel{
+	margin-top: 2px;
+}
+.cancelOrder{
+	font-size: 12px;
+	font-weight: 500;
+	color: #FFFFFF;
+	background-color: #f50000;
+	-webkit-border-radius: 5px;
+	        border-radius: 5px;
+}
+.confirmOrder{
+	font-size: 12px;
+	font-weight: 500;
+	color: #FFFFFF;
+	background-color: #ffaf0e;
+	-webkit-border-radius: 5px;
+	        border-radius: 5px;
+}
+.EDconfirmOrder{
+	font-size: 12px;
+	font-weight: 500;
+	color: #676767;
+	background-color: #e3e7d9;
+	-webkit-border-radius: 5px;
+	        border-radius: 5px;
+}
+.confirmDetail{
+	background-color: #FFFFFF;
+	border: 1px solid #F0F0F0;
+	-webkit-border-radius: 5px;
+	        border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+}
+/* .confirmDetail text{
+	font-size: 14px;
+} */
+.orderRow{
+	margin-top: 5px;
+}
+.itemTitle{
+	font-weight: 500;
+}
+.functionButton{
+	font-size: 32rpx;
+	-webkit-border-radius: 36rpx;
+	        border-radius: 36rpx;
+	background-color: #07C160;
+}
+#endtask{
+	background-color: #FF3355;
+}
+#continuetask{
+	color: #FFFFFF;
+}
+

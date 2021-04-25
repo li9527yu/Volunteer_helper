@@ -1,37 +1,188 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/login/login",
+			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "归家救援",
+				"enablePullDownRefresh":true
 			}
 		},
 		{
-			"path": "pages/index/index",
+			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "归家救援"
+			}
+		},
+		
+		{
+			"path": "pages/person/person",
+			"style": {
+				"navigationBarTitleText": "归家救援"
+			}
+		},
+		{
+			"path": "pages/chooseType/choose",
+			"style": {
+				"navigationBarTitleText": "选择类型"
+			}
+		},
+		{
+			"path": "pages/Info/volunteerInfo",
+			"style": {
+				"navigationBarTitleText": "志愿者信息"
+			}
+		},
+		{
+			"path": "pages/Info/familyInfo",
+			"style": {
+				"navigationBarTitleText": "家属信息"
+			}
+		},
+		{
+			"path": "pages/myOld/oldPeople",
+			"style": {
+				"navigationBarTitleText": "我的老人",
+				"enablePullDownRefresh":true
+			}
+		},
+		{
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		},
+		{
+			"path": "pages/volunteer/registerVolunteer",
+			"style": {
+				"navigationBarTitleText": "我的志愿者"
+			}
+		},
+		{
+			"path": "pages/volunteer/task",
+			"style": {
+				"navigationBarTitleText": "任务大厅"
+			}
+		},
+		{
+			"path": "pages/volunteer/taskHistory",
+			"style": {
+				"navigationBarTitleText": "我的任务"
+			}
+		},
+		{
+			"path": "pages/task/taskID",
+			"style": {
+				"navigationBarTitleText": "任务ID"
+			},
+			"permission" : {
+				"scope.userLocation": {
+				        "desc": "小程序将使用定位功能"
+				      }
+			}
+			// "plugins": {
+			//         "chooseLocation": {
+			//         "version": "1.0.5",
+			//         "provider": "wx76a9a06e5b4e693e"
+			//         }
+			//     }
+		},
+		{
+			"path": "pages/task/map",
+			"style": {
+				"navigationBarTitleText": "地图"
+			}
+		},
+		{
+			"path": "pages/myOld/callPolice",
+			"style": {
+				"navigationBarTitleText": "一键报警"
+			}
+		},
+		{
+			"path": "pages/myOld/changeOldInfo",
+			"style": {
+				"navigationBarTitleText": "老人信息"
+			}
+		},
+		{
+			"path": "pages/function/userChat",
+			"style": {
+				"navigationBarTitleText": "队员聊天"
+			}
+		},
+		{
+			"path": "pages/function/faceRecognition",
+			"style": {
+				"navigationBarTitleText": "人脸识别"
 			}
 		},
 		{
 			"path": "pages/function/function",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "人脸识别"
 			}
 		},
 		{
-			"path": "pages/person/person",
+			"path": "pages/Info/perfectInfo",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "完善信息"
+			}
+		},
+		{
+			"path": "pages/Info/VchangeInfo",
+			"style": {
+				"navigationBarTitleText": "修改志愿者信息"
+			}
+		},
+		{
+			"path": "pages/myOld/AddOld",
+			"style": {
+				"navigationBarTitleText": "添加老人"
+			}
+		},
+		{
+			"path": "pages/person/changeInfo",
+			"style": {
+				"navigationBarTitleText": "修改资料"
+			}
+		},
+		{
+			"path": "pages/index/indexDetail",
+			"style": {
+				"navigationBarTitleText": "资讯详情"
+			}
+		},
+		{
+			"path": "pages/person/changePw",
+			"style": {
+				"navigationBarTitleText": "修改密码"
 			}
 		}
+		
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarTextStyle": "#FFFFFF",
+		"navigationBarTitleText": "归家救援",
+		"navigationBarBackgroundColor": "#FF2003",
 		"backgroundColor": "#F8F8F8",
 		"usingComponents":{
-			
+			// "uParse":"/components/u-parse/u-parse.vue",
+			"van-button": "/wxcomponents/vant/button/index",
+			"van-cell": "/wxcomponents/vant/cell/index",
+			"van-cell-group": "/wxcomponents/vant/cell-group/index",
+			"van-row": "/wxcomponents/vant/row/index",
+			"van-col": "/wxcomponents/vant/col/index",
+			"van-field": "/wxcomponents/vant/field/index",
+			"van-radio": "/wxcomponents/vant/radio/index",
+			"van-radio-group": "/wxcomponents/vant/radio-group/index",
+			"van-picker": "/wxcomponents/vant/picker/index",
+			"van-popup": "/wxcomponents/vant/popup/index",
+			"van-uploader": "/wxcomponents/vant/uploader/index",
+			"van-icon":"/wxcomponents/vant/icon/index",
+			"van-overlay":"/wxcomponents/vant/overlay/index",
+			"van-grid": "/wxcomponents/vant/grid/index",
+			"van-grid-item": "/wxcomponents/vant/grid-item/index",
+			"van-search": "/wxcomponents/vant/search/index"
 		}
 		
 	},
@@ -39,7 +190,6 @@
 		"color":"#000000",
 		"backgroundColor":"#FFFFFF",
 		"selectedColor":"#d81e06",
-		"fontSize":"14px",
 		"list":[
 			{
 				"pagePath":"pages/index/index",
@@ -48,8 +198,14 @@
 				"selectedIconPath":"static/img/selected_home.png"
 			},
 			{
-				"pagePath":"pages/function/function",
-				"text":"功能区",
+				"pagePath":"pages/myOld/oldPeople",
+				"text":"老人",
+				"iconPath":"static/img/olddefault.png",
+				"selectedIconPath":"static/img/old.png"
+			},
+			{
+				"pagePath":"pages/volunteer/registerVolunteer",
+				"text":"志愿者",
 				"iconPath":"static/img/function.png",
 				"selectedIconPath":"static/img/selected_function.png"
 			},
@@ -58,6 +214,16 @@
 				"text":"个人",
 				"iconPath":"static/img/person.png",
 				"selectedIconPath":"static/img/selected_person.png"
+			}
+		]
+	},
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
 			}
 		]
 	}

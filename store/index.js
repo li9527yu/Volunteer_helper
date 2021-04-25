@@ -1,0 +1,119 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+    state: {
+		isLogin:false,
+		isPerfectInfo:false,
+		isVolunteer:false,
+		vid:'',
+		uid:'',
+		token:'',
+		tel:'',
+		birthday:'',
+		gender:'',
+		name:'',
+		picture:'',
+		status:10,
+		role:'',
+		profession:'',
+		transportation:'',
+		VolunteerStatus:'',
+		district:'',
+		place:'',
+		address:'',
+		province:''
+    },
+    mutations: {
+        volunteer(state,provider){
+			state.profession=provider.profession;
+			state.transportation=provider.transportation;
+			state.VolunteerStatus=provider.VolunteerStatus;
+			state.district=provider.district;
+			state.gender=provider.gender;
+			state.place=provider.place;
+			state.address=provider.address;
+			state.province=provider.province;
+			state.vid=provider.vid;
+			state.status=provider.status;
+			if(provider.status==0){
+				state.isVolunteer=false;	
+			}
+			else{
+				state.isVolunteer=true;	
+			}
+			uni.setStorage({
+				key:'VolunteerInfo',
+				data:provider
+			})
+		},
+		login(state,provider){
+			state.isLogin=true;
+			state.uid=provider.user.uid;
+			state.token=provider.token;
+			state.tel=provider.user.tel
+			state.birthday=provider.user.birthday
+			state.gender=provider.user.gender
+			state.name=provider.user.name
+			state.picture=provider.user.picture
+			state.role=provider.user.role;
+			if(provider.user.name||provider.user.picture){
+				state.isPerfectInfo=true
+			}
+			uni.setStorage({
+				key:'userInfo',
+				data:provider
+			})
+		},
+		
+		cancelVolunteer(state){
+			state.isVolunteer=false;
+			state.status=10;
+			state.profession='';
+			state.transportation='';
+			state.VolunteerStatus='';
+			state.district='';
+			state.gender='';
+			state.place='';
+			state.address='';
+			state.province='';
+			state.vid='';
+			uni.removeStorage({
+				key:'VolunteerInfo'
+			})
+		},
+		loginOut(state){
+			uni.removeStorage({
+				key:'userInfo'
+			})
+			uni.removeStorage({
+				key:'VolunteerInfo'
+			})
+			state.isLogin=false;
+			state.isVolunteer=false;
+			state.isPerfectInfo=false;
+			state.uid='';
+			state.token='';;
+			state.tel='';
+			state.birthday='';
+			state.name='';
+			state.picture='';
+			state.role='';
+			state.profession='';
+			state.transportation='';
+			state.VolunteerStatus='';
+			state.district='';
+			state.gender='';
+			state.place='';
+			state.address='';
+			state.province='';
+			state.vid='';
+			state.status='';
+			
+		}
+    }
+})
+
+export default store

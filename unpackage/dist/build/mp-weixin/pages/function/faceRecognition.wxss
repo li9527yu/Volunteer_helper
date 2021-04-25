@@ -1,0 +1,1 @@
+.container{width:100%}.face{border:2rpx solid #e2e2e2;-webkit-border-radius:30rpx;border-radius:30rpx;padding:20rpx;margin:0 auto}.faceTitle{font-size:32rpx;font-weight:600;text-align:center}.functionButton{margin-top:20rpx}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的任务",
+  "usingComponents": {
+    "task-list": "/pages/taskList/taskList"
+  }
+}

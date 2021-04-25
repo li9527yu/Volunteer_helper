@@ -1,0 +1,493 @@
+<template>
+	<view class="container">
+		<view>
+			<map
+				:longitude="longitude"
+				:latitude="latitude"
+				:markers="makers"
+				:circles="circles"
+				
+				:show-compass="true"
+				:scale="16"
+				:style="{height: nowMapIndex ? nintyPercentScreenHeight : seventyPercentScreenHeight,width:'750rpx'}"></map>
+		</view>
+		<view class="userFunction">
+			<view class="function" >
+				<view @click="open"  class="functionImg" id="oldpeople"><image src="../../static/img/functionOld.png"/></view>
+				<text class="functionTitle">老人信息</text>
+				<uni-popup ref="popup" type="bottom">
+					<view class="oldInfo">
+						<old-info-show :oldImage="oldImage" :OldInfo="elderInfo" :TaskInfo="TaskInfo" :FamilyTel="FamilyTel"></old-info-show>
+					</view>
+				</uni-popup>
+				<!-- <van-popup :show="isShowOld" position="bottom" round closeable >
+						<view class="oldInfo">
+							<van-row>
+								<van-col :span="24">
+									<image src="../../static/img/defaultImg.png"></image>
+								</van-col>
+							</van-row>
+							<van-row></van-row>
+							<van-row></van-row>
+						</view>
+				</van-popup> -->
+			</view>
+			<view class="function">
+				<view @click="userChat" class="functionImg" id="userChat"><image src="../../static/img/functionChat.png"/></view>
+				<text class="functionTitle">队员聊天</text>
+			</view>
+			<view class="function">
+				<view @click="faceRecognition" class="functionImg" id="faceRecognition"><image src="../../static/img/functionScan.png"/></view>
+				<text class="functionTitle">人脸识别</text>	
+			</view>
+		</view>
+		
+	</view>
+</template>
+<script>
+	import {
+		mapState,
+		mapMutations
+	} from 'vuex'
+	import OldInfoShow from './oldInfoShow.vue'
+	var QQMapWX = require('../../static/js/qqmap-wx-jssdk.js');
+	var qqmapsdk;
+	export default {
+		data(){
+			return{
+				nowMapIndex:true,
+				phoneHeight:'',//屏幕高
+				phoneWidth:'',//屏幕宽
+				isShowOld:false,
+				longitude:'',//
+				latitude:'',//
+				elderInfo:{},
+				TaskInfo:{},
+				FamilyTel:'',
+				makers:[],
+				circles:[],
+				socketTask: null,
+				is_open_socket: false,
+				timer:null,
+				oldImage:[]
+			}
+		},
+		components:{
+			OldInfoShow
+			
+		},
+		computed:{
+			...mapState(['token','uid','tel','pw','vid','picture','name']),
+			//计算
+			nintyPercentScreenHeight(){//百分之九十的屏幕高
+				if(this.phoneHeight!=='' && this.phoneWidth!==''){
+					return 750/(this.phoneWidth)*(this.phoneHeight)*0.8+'rpx'
+				}else{
+					return '1250rpx'
+				}
+				
+			},
+			seventyPercentScreenHeight(){//百分之七十的屏幕高
+				if(this.phoneHeight!=='' && this.phoneWidth!==''){
+					return 750/(this.phoneWidth)*(this.phoneHeight)*0.7+'rpx'
+				}else{
+					return '1000rpx'
+				}
+				
+			},
+		},	
+		created() {
+			qqmapsdk = new QQMapWX({
+			            key: 'QV7BZ-6M76X-TFL4M-TGKDY-FFC76-VJF7O'
+			        });
+			
+			let _this = this;
+			uni.getSystemInfo({
+				success(res) {
+					 _this.phoneHeight = res.windowHeight;
+					 _this.phoneWidth = res.windowWidth
+				}
+			});
+			// this.searchPOI()
+		},
+		onLoad(options){
+			if(options!=null){
+				this.elderInfo=JSON.parse(options.oldInfo)
+				console.log(this.elderInfo.latitude)
+				console.log(this.elderInfo.longitude)
+				this.getLocation(this.elderInfo.latitude,this.elderInfo.longitude)
+				this.searchPOI(this.elderInfo.latitude,this.elderInfo.longitude)
+				this.circles=[
+					{
+						longitude:this.elderInfo.longitude,
+						latitude:this.elderInfo.latitude,
+						fillColor:"#00000000",//填充颜色
+						color:"#12A1DD",//描边的颜色
+						radius:5000,//半径
+						strokeWidth:2//描边的宽度
+					}
+				]
+				this.TaskInfo=JSON.parse(options.taskInfo)
+				this.getFamilyTel();
+				this.getOldImages();
+				this.connectSocketInit()
+				// console.log(JSON.parse(options.oldInfo));
+				// console.log(JSON.parse(options.taskInfo));
+				
+			}
+			console.log(this.elderInfo)
+			console.log(this.TaskInfo)
+		},
+		beforeDestroy() {
+			this.closeSocket();
+		},
+		destroyed() {
+			this.closeSocket();
+		},
+		onShow() {
+			this.connectSocketInit()
+		},
+		onHide() {
+			this.closeSocket();
+		},
+		methods:{
+			getOldImages(){
+				var that=this;
+				var token=`Bearer ${this.token}`;
+				uni.request({
+					url:'https://fwwb2020-proxy-slk.tgucsdn.com/photo/get',
+					method:'POST',
+						header:{
+							"content-type":"application/json",
+							"Authorization":token,
+						},
+						data:{
+							eid:that.elderInfo.eid
+						},
+						success: (res) => {
+							console.log(res.data)
+							if(res.data.status==200){
+								var data=res.data.data.photo;
+								console.log(data)
+								that.oldImage.splice(0,0,data.photo1)
+								that.oldImage.splice(1,0,data.photo2)
+								that.oldImage.splice(2,0,data.photo3)
+								console.log(that.oldImage)
+								// that.FamilyTel=res.data.data.user.tel;
+								
+							}else{
+								uni.showToast({
+									title:`${res.data.msg}`,
+									icon:'none',
+									mask:true,
+									image:'../../static/img/error.png'
+								})	
+							}
+						},
+						fail: (err) => {
+							uni.showToast({
+								title:'获得失败！',
+								icon:'none',
+								mask:true,
+								image:'../../static/img/error.png'
+							})
+						}
+					})
+			},
+			getFamilyTel(){
+				var that=this;
+				var token=`Bearer ${this.token}`;
+				uni.request({
+					url:'https://fwwb2020-proxy-slk.tgucsdn.com/user/getUserByUid',
+					method:'POST',
+						header:{
+							"content-type":"application/json",
+							"Authorization":token,
+						},
+						data:{
+							uid:that.elderInfo.uid
+						},
+						success: (res) => {
+							console.log(res.data)
+							if(res.data.status==200){
+								
+								that.FamilyTel=res.data.data.user.tel;
+								
+							}else{
+								uni.showToast({
+									title:`${res.data.volunteerItem}`,
+									icon:'none',
+									mask:true,
+									image:'../../static/img/error.png'
+								})	
+							}
+						},
+						fail: (err) => {
+							uni.showToast({
+								title:'获得失败！',
+								icon:'none',
+								mask:true,
+								image:'../../static/img/error.png'
+							})
+						}
+					})
+				},
+			open(){
+				 // 通过组件定义的ref调用uni-popup方法
+				 this.$refs.popup.open()
+			  },
+			getLocation(lat,lon){
+				var that=this;
+				uni.getLocation({
+				    // type: 'wgs84',
+				    type:'gcj02',
+					success: (res) => {
+						// console.log(`lon:${res.longitude},lat:${res.latitude}`)
+						this.latitude =res.latitude;
+						this.longitude =res.longitude;
+						that.makers=[
+							{
+								id:0,
+								latitude:lat,
+								longitude:lon,
+								iconPath:'../../static/img/lostOld.png',
+								width:40,
+								height:40,
+								title:'老人走失位置'
+							}
+						]
+						
+						// console.log(this.circles)
+						// this.handle(res.latitude,res.longitude)
+				    }
+				});
+				
+				console.log(this.makers)
+			},
+			getLocation2(){
+				var that=this;
+				uni.getLocation({
+				    // type: 'wgs84',
+				    type:'gcj02',
+					success: (res) => {
+						this.latitude =res.latitude;
+						this.longitude =res.longitude;
+				    }
+				});
+			},
+			searchPOI(lat,lon){
+				var that=this;
+				// console.log('aa')
+				qqmapsdk.search({
+					keyword:'警察局',
+					location:{
+						latitude:lat,
+						longitude:lon
+					},
+					page_size:20,
+					success:(res)=>{
+						console.log(res.data)
+						for(var i=0;i<res.data.length;i++){
+							var item={};
+							item.title= res.data[i].title;
+							item.id= i+2;
+							item.latitude=res.data[i].location.lat;
+							item.longitude= res.data[i].location.lng;
+							item.iconPath= "../../static/img/icon-location.png";//图标路径
+							item.width= 20;
+							item.height= 20;
+							that.makers.splice(i+1,0,item);
+						}
+						// console.log(that.makers)
+						
+					},
+					fail:(err)=>{
+						console.log(err)
+					}
+				})
+				qqmapsdk.search({
+					keyword:'医院',
+					location:{
+						latitude:lat,
+						longitude:lon
+					},
+					page_size:20,
+					success:(res)=>{
+						console.log(res.data)
+						for(var i=0;i<res.data.length;i++){
+							var item={};
+							item.title= res.data[i].title;
+							item.id= 20+i;
+							item.latitude=res.data[i].location.lat;
+							item.longitude= res.data[i].location.lng;
+							item.iconPath= "../../static/img/icon-location.png";//图标路径
+							item.width= 20;
+							item.height= 20;
+							that.makers.splice(i+20,0,item);
+						}
+						
+						
+					},
+					fail:(err)=>{
+						console.log(err)
+					}
+				})
+				console.log(that.makers)
+			},
+			OldInfo(){
+				this.isShowOld=true
+				console.log(this.isShowOld)
+			},
+			onClose(){
+				this.isShowOld=false
+				console.log(this.isShowOld)
+			},
+			userChat(){
+				uni.navigateTo({
+					url:'../function/userChat?taskID='+this.TaskInfo.tid
+				})
+			},
+			faceRecognition(){
+				var that=this;
+				console.log(that.TaskInfo.tid)
+				uni.navigateTo({
+					url:'../function/faceRecognition?tid='+that.TaskInfo.tid+'&eid='+that.elderInfo.eid
+				})
+			},
+			connectSocketInit(){
+				var that=this;
+				// 创建一个this.socketTask对象【发送、接收、关闭socket都由这个对象操作】
+				this.socketTask = uni.connectSocket({
+					// 【非常重要】必须确保你的服务器是成功的,如果是手机测试千万别使用ws://127.0.0.1:9099【特别容易犯的错误】
+					url: "wss://fwwb2020-proxy-slk.tgucsdn.com/websocket/location/"+that.TaskInfo.tid,
+					success(data) {
+						console.log("websocket连接成功");
+					},
+				});
+			 
+				// 消息的发送和接收必须在正常连接打开中,才能发送或接收【否则会失败】
+				this.socketTask.onOpen((res) => {
+					console.log("WebSocket连接正常打开中...！");
+					that.is_open_socket = true;
+						
+					// 注：只有连接正常打开中 ，才能正常成功发送消息
+					// 注：只有连接正常打开中 ，才能正常收到消息
+					var length=that.makers.length;
+					this.socketTask.onMessage((res) => {
+						// console.log(JSON.parse(res.data))
+						
+						console.log(length)
+						var objs=JSON.parse(res.data);
+						console.log(objs)
+						objs.forEach(function(item,index){
+							var tid=Number(objs.tid)
+							var volunteerItem={};
+							volunteerItem.id=30+index;
+							volunteerItem.latitude=item.latitude;
+							volunteerItem.longitude=item.longitude;
+							volunteerItem.title=item.name
+							volunteerItem.iconPath= item.picture
+							volunteerItem.width= 20;
+							volunteerItem.height= 20;
+							console.log(volunteerItem);
+							that.makers.splice(30+index,1,volunteerItem)
+						})
+						console.log(that.makers)
+						
+					})
+					if(that.timer==null)
+					{
+						that.timer=setInterval(function(){
+							that.getLocation2()
+							// console.log(`x:${that.longitude},y:${that.latitude}`)
+							var location={
+								vid:that.vid,
+								tid:that.TaskInfo.tid,
+								picture:that.picture,
+								name:that.name,
+								longitude:that.longitude,
+								latitude:that.latitude
+							}
+							location=JSON.stringify(location)
+							// console.log(location)
+							that.socketTask.send({
+								data:location
+							});
+						},1000)
+					}
+				})
+				// 这里仅是事件监听【如果socket关闭了会执行】
+				this.socketTask.onClose(() => {
+					console.log("已经被关闭了")
+				})
+			},
+			// 关闭websocket【离开这个页面的时候执行关闭】
+			closeSocket() {
+				var that=this;
+				// this.timer=null;
+				clearInterval(this.timer)
+				this.timer = null
+				this.socketTask.close({
+						success(res) {
+							that.is_open_socket = false;
+							console.log("关闭成功", res)
+						},
+						fail(err) {
+							console.log("关闭失败", err)
+						}
+					})
+			},
+			
+		}
+	}
+</script>
+<style>
+	.userFunction{
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		margin-top: 10rpx;
+		padding: 5px;
+	}
+	.function{
+		flex: 1;
+		padding: 5px;
+		/* border-width: 1px; */
+		/* border-style: solid; */
+		/* border-color: #333333; */
+	}
+	.functionImg{
+		/* flex: 1; */
+		padding: 5px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 80px;
+		margin-bottom: 5px;
+	}
+	#oldpeople{
+		background-color: #07C160;
+	}
+	#userChat{
+		background-color: #007AFF;
+	}
+	#faceRecognition{
+		background-color: #FF3355;
+	}
+	.functionImg image{
+		width: 40px;
+		height: 40px;
+	}
+	.functionTitle{
+		/* flex: 1; */
+		text-align: center;
+		font-size: 16px;
+		font-weight: bold;
+
+	}
+	.oldInfo{
+		background-color: #FFFFFF;
+		border: 1px solid #FFFFFF;
+		border-radius: 28rpx 28rpx 0 0;
+	}
+</style>

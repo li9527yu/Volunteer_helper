@@ -1,0 +1,1 @@
+.choose-body{width:80%;margin:10% auto;display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;flex-direction:column}.choose-content{-webkit-box-flex:1;-webkit-flex:1;flex:1;margin:20px 0}.choose-text{padding-left:10px;font-size:18px;font-weight:400}.ButtonType{padding:10vh 0}

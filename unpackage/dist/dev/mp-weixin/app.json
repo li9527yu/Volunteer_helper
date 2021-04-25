@@ -1,22 +1,41 @@
 {
   "pages": [
-    "pages/login/login",
     "pages/index/index",
+    "pages/login/login",
+    "pages/person/person",
+    "pages/chooseType/choose",
+    "pages/Info/volunteerInfo",
+    "pages/Info/familyInfo",
+    "pages/myOld/oldPeople",
+    "pages/register/register",
+    "pages/volunteer/registerVolunteer",
+    "pages/volunteer/task",
+    "pages/volunteer/taskHistory",
+    "pages/task/taskID",
+    "pages/task/map",
+    "pages/myOld/callPolice",
+    "pages/myOld/changeOldInfo",
+    "pages/function/userChat",
+    "pages/function/faceRecognition",
     "pages/function/function",
-    "pages/person/person"
+    "pages/Info/perfectInfo",
+    "pages/Info/VchangeInfo",
+    "pages/myOld/AddOld",
+    "pages/person/changeInfo",
+    "pages/index/indexDetail",
+    "pages/person/changePw"
   ],
   "subPackages": [],
   "window": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "归家救援",
+    "navigationBarBackgroundColor": "#FF2003",
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
     "color": "#000000",
     "backgroundColor": "#FFFFFF",
     "selectedColor": "#d81e06",
-    "fontSize": "14px",
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -25,8 +44,14 @@
         "selectedIconPath": "static/img/selected_home.png"
       },
       {
-        "pagePath": "pages/function/function",
-        "text": "功能区",
+        "pagePath": "pages/myOld/oldPeople",
+        "text": "老人",
+        "iconPath": "static/img/olddefault.png",
+        "selectedIconPath": "static/img/old.png"
+      },
+      {
+        "pagePath": "pages/volunteer/registerVolunteer",
+        "text": "志愿者",
         "iconPath": "static/img/function.png",
         "selectedIconPath": "static/img/selected_function.png"
       },
@@ -38,6 +63,28 @@
       }
     ]
   },
-  "permission": {},
-  "usingComponents": {}
+  "permission": {
+    "scope.userLocation": {
+      "desc": "小程序将使用定位功能"
+    }
+  },
+  "usingComponents": {
+    "van-button": "/wxcomponents/vant/button/index",
+    "van-cell": "/wxcomponents/vant/cell/index",
+    "van-cell-group": "/wxcomponents/vant/cell-group/index",
+    "van-row": "/wxcomponents/vant/row/index",
+    "van-col": "/wxcomponents/vant/col/index",
+    "van-field": "/wxcomponents/vant/field/index",
+    "van-radio": "/wxcomponents/vant/radio/index",
+    "van-radio-group": "/wxcomponents/vant/radio-group/index",
+    "van-picker": "/wxcomponents/vant/picker/index",
+    "van-popup": "/wxcomponents/vant/popup/index",
+    "van-uploader": "/wxcomponents/vant/uploader/index",
+    "van-icon": "/wxcomponents/vant/icon/index",
+    "van-overlay": "/wxcomponents/vant/overlay/index",
+    "van-grid": "/wxcomponents/vant/grid/index",
+    "van-grid-item": "/wxcomponents/vant/grid-item/index",
+    "van-search": "/wxcomponents/vant/search/index"
+  },
+  "sitemapLocation": "sitemap29.json"
 }

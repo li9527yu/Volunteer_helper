@@ -1,0 +1,35 @@
+
+.Old{
+	width: 100%;
+	background-color: #FFFFFF;
+	border: 1px solid #FFFFFF;
+	-webkit-border-radius: 28rpx 28rpx 0 0;
+	        border-radius: 28rpx 28rpx 0 0;
+}
+.oldDetail{
+	margin: 0 auto;
+	width: 95%;
+	padding: 10rpx;
+}
+.taskTitle{
+	font-size: 28rpx;
+	font-weight: 600;
+}
+.taskInfo{
+	font-size: 32rpx;
+	font-weight: 300;
+}
+.OldInfo{
+	width: 100%;
+	margin-top: 10rpx;
+}
+.oldImage{
+	width: 100%;
+}
+.oldImageItem{
+	width: 100%;
+	text-align: center;
+	border: 1px solid #FFFFFF;
+	/* border-radius: 28rpx 28rpx 0 0; */
+}
+

@@ -1,0 +1,23 @@
+
+.taskList{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+                flex-wrap: wrap;
+        -webkit-justify-content: space-around;
+                justify-content: space-around;
+}
+.itemContainer{
+	margin: 0 auto;
+	width: 90%;
+	padding: 10rpx;
+}
+.Empty{
+	width: 100%;
+}
+.EmptyImg{
+	width: 750rpx;
+	height: 750rpx;
+}
+

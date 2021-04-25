@@ -1,0 +1,41 @@
+
+.container{
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.registerMain{
+	width: 90%;
+	margin: 40rpx auto;
+	border: 2rpx solid #F1F1F1;
+	padding: 20rpx;
+	-webkit-border-radius: 20rpx;
+	        border-radius: 20rpx;
+}
+.input-row {
+	/* width: 95vw; */
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	position: relative;
+	/* padding:1px 2px; */
+	/* font-size: 18px; */
+	/* margin-top: 10px; */
+	/* line-height: 40px; */
+	/* border: 1px solid #e4e5ea;
+	border-radius: 10px;
+	background-color: #FFFFFF; */
+}
+.send-code-btn {
+	width: 280rpx;
+	text-align: center;
+	background-color: #ff0000;
+	color: #FFFFFF;
+	font-size: 24rpx;
+}
+
